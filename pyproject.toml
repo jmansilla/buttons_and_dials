@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "buttons-and-dials"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Javier Mansilla <javimansilla@gmail.com>"]
 readme = "README.md"
