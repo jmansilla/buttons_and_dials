@@ -24,12 +24,6 @@ class ConfigSet:
         self._settings = self._load_settings(check_cwd)
         if argv_prefix:
             argsdict = self._settings_from_argv(argv_prefix)
-            for k, v in argsdict.items():
-                if k in self._settings:
-                    # attempt to preserve type
-                    if isinstance(self._settings[k], (int, float)):
-                        argsdict[k] = float(v)
-            # we only overwrite the settings with the args.
             print(f"Overwriting settings with args: {argsdict}")
             self._settings.update(argsdict)
 
@@ -74,4 +68,8 @@ class ConfigSet:
                 argsdict[k].append(v)
             else:
                 argsdict[k] = v
-        return argsdict
+        # Lets make toml parse data types
+        string = ''
+        for k, v in argsdict.items():
+            string += f"{k} = {v}\n"
+        return tomllib.loads(string)
